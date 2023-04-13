@@ -1,8 +1,14 @@
+import { useRouter } from 'next/navigation';
+
 import { RecipeCardProps } from '@/common/types';
 
-export default function RecipeCard({ title, publisher, image_url }: RecipeCardProps) {
+export default function RecipeCard({ title, publisher, image_url, recipe_id }: RecipeCardProps) {
+  const router = useRouter();
+
   return (
-    <li className='flex flex-row items-center p-4 cursor-pointer transition-all duration-200 ease-in hover:-translate-y-1 hover:bg-pale-orange'>
+    <li
+      className='flex flex-row items-center p-4 cursor-pointer transition-all duration-200 ease-in hover:-translate-y-1 hover:bg-pale-orange'
+      onClick={() => router.push(`/${recipe_id}`)}>
       <img
         src={image_url}
         alt='recipe'
