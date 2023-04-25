@@ -1,16 +1,25 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { PencilSquareIcon, BookmarkIcon } from '@heroicons/react/24/outline';
 
 import logo from '../public/logo.png';
 import { useWindowWide } from '@/hooks/useWindowWide';
 
-export default function RecipeBookHeader() {
+function RecipeBookHeader() {
+  const router = useRouter();
   const wide = useWindowWide(768);
 
   return (
     <header className='p-6 flex flex-row items-center justify-center gap-6 flex-wrap md:justify-between md:gap-4 md:flex-nowrap lg:px-8'>
-      <Image src={logo} alt='logo' className='w-[112px] lg:w-[140px]' />
+      <Image
+        src={logo}
+        alt='logo'
+        className='w-[112px] lg:w-[140px] hover:cursor-pointer'
+        onClick={() => router.push('/')}
+      />
       <form className='flex flex-row'>
         <input
           type='search'
@@ -37,3 +46,5 @@ export default function RecipeBookHeader() {
     </header>
   );
 }
+
+export default RecipeBookHeader;
