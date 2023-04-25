@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import useSWR from 'swr';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
@@ -7,7 +9,7 @@ import RecipeCard from './RecipeCard';
 import { fetcher } from '@/utils/fetcher';
 import { RecipeCardProps } from '@/common/types';
 
-export default function Recipes() {
+function Recipes() {
   const [current, setCurrent] = useState(1);
   const [perPage] = useState(10);
   const [size, setSize] = useState(perPage);
@@ -32,13 +34,14 @@ export default function Recipes() {
   };
 
   return (
-    <section className='bg-white w-full md:w-[34%] xl:rounded-bl-md'>
+    <section className='bg-white w-full md:max-w-[34%] xl:rounded-bl-md'>
       <ul className='flex flex-col md:mt-6'>
         {getRecipes(current, size)?.map((recipe: RecipeCardProps, index: number) => (
           <RecipeCard
             title={recipe?.title}
             publisher={recipe?.publisher}
             image_url={recipe?.image_url}
+            recipe_id={recipe?.recipe_id}
             key={index}
           />
         ))}
@@ -62,3 +65,5 @@ export default function Recipes() {
     </section>
   );
 }
+
+export default Recipes;
