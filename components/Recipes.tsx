@@ -34,7 +34,7 @@ function Recipes() {
   };
 
   return (
-    <section className='bg-white w-full md:max-w-[34%] xl:rounded-bl-md'>
+    <section className='bg-white w-full md:max-w-[30%] lg:max-w-[34%] xl:rounded-bl-md'>
       <ul className='flex flex-col md:mt-6'>
         {getRecipes(current, size)?.map((recipe: RecipeCardProps, index: number) => (
           <RecipeCard
