@@ -14,15 +14,18 @@ function Recipes() {
   const [perPage] = useState(10);
   const [size, setSize] = useState(perPage);
 
-  const { data } = useSWR('https://forkify-api.herokuapp.com/api/search?q=pie', fetcher);
+  const { data } = useSWR(
+    `https://forkify-api.herokuapp.com/api/v2/recipes?search=pie&key=${process.env.NEXT_PUBLIC_FORKIFY_ENDPOINT}`,
+    fetcher
+  );
 
   const getRecipes = (current: number, pageSize: number) => {
-    return data?.recipes.slice((current - 1) * pageSize, current * pageSize);
+    return data?.data.recipes.slice((current - 1) * pageSize, current * pageSize);
   };
 
   const PerPageChange = (value: number) => {
     setSize(value);
-    const newPerPage = Math.ceil(data?.recipes.length / value);
+    const newPerPage = Math.ceil(data?.data.recipes.length / value);
     if (current > newPerPage) {
       setCurrent(newPerPage);
     }
@@ -41,7 +44,7 @@ function Recipes() {
             title={recipe?.title}
             publisher={recipe?.publisher}
             image_url={recipe?.image_url}
-            recipe_id={recipe?.recipe_id}
+            id={recipe?.id}
             key={index}
           />
         ))}
@@ -49,7 +52,7 @@ function Recipes() {
       <div className='p-4 flex flex-row justify-center'>
         <Pagination
           className='flex flex-row items-center gap-8 select-none text-[14px] text-pink-orange font-bold lg:text-[16px] hover:cursor-pointer'
-          total={data?.recipes.length}
+          total={data?.data.recipes.length}
           pageSize={size}
           onShowSizeChange={PerPageChange}
           prevIcon={
