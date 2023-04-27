@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
+import { ClockIcon, UsersIcon } from '@heroicons/react/24/outline';
 
 import { fetcher } from '@/utils/fetcher';
 
@@ -21,9 +22,22 @@ function RecipeIdPage() {
           className='w-full h-[200px] object-cover opacity-40 md:h-[260px] lg:h-[320px]'
         />
       </figure>
-      <section className='p-8'>
-        <div className='flex flex-row gap-8'>
-          <div>{data?.data.recipe.cooking_time}</div>
+      <section className='py-16'>
+        <div className='flex flex-row justify-center gap-8'>
+          <div className='flex flex-row items-center gap-1'>
+            <ClockIcon className='w-[20px] stroke-pink-orange stroke-2 mr-1' />
+            <span className='font-bold text-[#615551] text-[14px]'>
+              {data?.data.recipe.cooking_time}
+            </span>
+            <span className='uppercase text-[#615551] text-[14px]'>Minutes</span>
+          </div>
+          <div className='flex flex-row items-center gap-1'>
+            <UsersIcon className='w-[20px] stroke-pink-orange stroke-2 mr-1' />
+            <span className='font-bold text-[#615551] text-[14px]'>
+              {data?.data.recipe.servings}
+            </span>
+            <span className='uppercase text-[#615551] text-[14px]'>Servings</span>
+          </div>
         </div>
       </section>
     </section>
