@@ -19,11 +19,16 @@ function RecipeIdPage() {
 
   return (
     <section className='w-full'>
-      <figure className='bg-gradient-to-br from-[#fbdb89] to-[#f48982]'>
+      <figure className='bg-gradient-to-br from-[#fbdb89] to-[#f48982] relative w-full'>
         <img
           src={data?.data.recipe.image_url}
           className='w-full h-[200px] object-cover opacity-40 md:h-[260px] lg:h-[320px]'
         />
+        <h1 className='absolute w-[50%] bottom-0 left-[50%] uppercase text-[26px] text-white text-center font-bold leading-[1.95] -skew-y-6 -translate-x-[50%] translate-y-[20%] lg:text-[32px]'>
+          <span className='box-decoration-clone	bg-gradient-to-br from-[#fbdb89] to-[#f48982] px-[1.3rem] py-4'>
+            {data?.data.recipe.title}
+          </span>
+        </h1>
       </figure>
       <section className='py-16'>
         <div className='flex flex-row justify-center gap-8'>
