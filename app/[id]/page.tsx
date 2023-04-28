@@ -43,13 +43,15 @@ function RecipeIdPage() {
         </div>
       </section>
       <section className='flex flex-col items-center gap-4 px-8 py-12 bg-[#f2efee] w-full'>
-        <h2 className='uppercase text-[15px] font-bold text-pink-orange'>Recipe Ingredients</h2>
+        <h2 className='uppercase text-[15px] font-bold text-pink-orange lg:text-[20px]'>
+          Recipe Ingredients
+        </h2>
         <ul className='grid grid-cols-2 gap-4 mt-2'>
           {data?.data.recipe.ingredients.map(
             (ingredient: RecipeIngredientsProps, index: number) => (
               <li key={index} className='flex flex-row items-start gap-2'>
-                <CheckIcon className='w-[16px] fill-pink-orange' />
-                <span className='text-[13px] text-[#615551]'>
+                <CheckIcon className='w-[16px] fill-pink-orange lg:w-[20px]' />
+                <span className='text-[13px] text-[#615551] lg:text-[16px]'>
                   {`${ingredient?.quantity !== null ? ingredient?.quantity : ''} ${
                     ingredient?.unit
                   } ${ingredient?.description} `}
