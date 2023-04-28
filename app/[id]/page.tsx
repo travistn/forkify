@@ -3,8 +3,10 @@
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 import { ClockIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CheckIcon } from '@heroicons/react/24/solid';
 
 import { fetcher } from '@/utils/fetcher';
+import { RecipeIngredientsProps } from '@/common/types';
 
 function RecipeIdPage() {
   const params = useParams();
@@ -39,6 +41,23 @@ function RecipeIdPage() {
             <span className='uppercase text-[#615551] text-[14px] lg:text-[18px]'>Servings</span>
           </div>
         </div>
+      </section>
+      <section className='flex flex-col items-center gap-4 px-8 py-12 bg-[#f2efee] w-full'>
+        <h2 className='uppercase text-[15px] font-bold text-pink-orange'>Recipe Ingredients</h2>
+        <ul className='grid grid-cols-2 gap-4 mt-2'>
+          {data?.data.recipe.ingredients.map(
+            (ingredient: RecipeIngredientsProps, index: number) => (
+              <li key={index} className='flex flex-row items-start gap-2'>
+                <CheckIcon className='w-[16px] fill-pink-orange' />
+                <span className='text-[13px] text-[#615551]'>
+                  {`${ingredient?.quantity !== null ? ingredient?.quantity : ''} ${
+                    ingredient?.unit
+                  } ${ingredient?.description} `}
+                </span>
+              </li>
+            )
+          )}
+        </ul>
       </section>
     </section>
   );
