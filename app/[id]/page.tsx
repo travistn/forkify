@@ -1,9 +1,10 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import useSWR from 'swr';
 import { ClockIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { CheckIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, ArrowSmallRightIcon } from '@heroicons/react/24/solid';
 
 import { fetcher } from '@/utils/fetcher';
 import { RecipeIngredientsProps } from '@/common/types';
@@ -42,7 +43,7 @@ function RecipeIdPage() {
           </div>
         </div>
       </section>
-      <section className='flex flex-col items-center gap-4 px-8 py-12 bg-[#f2efee] w-full'>
+      <section className='flex flex-col items-center gap-4 px-[5rem] py-12 bg-[#f2efee] w-full'>
         <h2 className='uppercase text-[15px] font-bold text-pink-orange lg:text-[20px]'>
           Recipe Ingredients
         </h2>
@@ -51,7 +52,7 @@ function RecipeIdPage() {
             (ingredient: RecipeIngredientsProps, index: number) => (
               <li key={index} className='flex flex-row items-start gap-2'>
                 <CheckIcon className='w-[16px] fill-pink-orange lg:w-[20px]' />
-                <span className='text-[13px] text-[#615551] lg:text-[16px]'>
+                <span className='text-[14px] text-[#615551] lg:text-[16px]'>
                   {`${ingredient?.quantity !== null ? ingredient?.quantity : ''} ${
                     ingredient?.unit
                   } ${ingredient?.description} `}
@@ -60,6 +61,23 @@ function RecipeIdPage() {
             )
           )}
         </ul>
+      </section>
+      <section className='flex flex-col items-center gap-6 px-[5rem] py-12'>
+        <h2 className='uppercase text-[15px] font-bold text-pink-orange lg:text-[20px]'>
+          How to cook it
+        </h2>
+        <p className='text-[14px] text-[#918581] text-center lg:text-[17px]'>
+          This recipe was carefully designed and tested by
+          <span className='text-[#918581] font-bold'> {data?.data.recipe.publisher}</span>. Please
+          check out directions at their website.
+        </p>
+        <Link
+          href={`${data?.data.recipe.source_url}`}
+          target='_blank'
+          className='uppercase text-[12px] text-white bg-gradient-to-br from-[#fbdb89] to-[#f48982] rounded-[10rem] px-4 py-2 flex flex-row items-center gap-1 transition-all duration-200 ease-in lg:text-[14px] lg:px-6 lg:py-3 hover:cursor-pointer hover:scale-105'>
+          Directions
+          <ArrowSmallRightIcon className='w-[14px] stroke-white stroke-1 lg:w-[15px]' />
+        </Link>
       </section>
     </section>
   );
