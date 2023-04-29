@@ -8,14 +8,17 @@ import Pagination from 'rc-pagination';
 import RecipeCard from './RecipeCard';
 import { fetcher } from '@/utils/fetcher';
 import { RecipeCardProps } from '@/common/types';
+import useStore from '@/store';
 
 function Recipes() {
   const [current, setCurrent] = useState(1);
   const [perPage] = useState(10);
   const [size, setSize] = useState(perPage);
 
+  const search = useStore((state) => state.search);
+
   const { data } = useSWR(
-    `https://forkify-api.herokuapp.com/api/v2/recipes?search=pie&key=${process.env.NEXT_PUBLIC_FORKIFY_ENDPOINT}`,
+    `https://forkify-api.herokuapp.com/api/v2/recipes?search=${search}&key=${process.env.NEXT_PUBLIC_FORKIFY_ENDPOINT}`,
     fetcher
   );
 
