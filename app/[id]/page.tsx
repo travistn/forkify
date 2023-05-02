@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { ClockIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ClockIcon, UsersIcon, BookmarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ArrowSmallRightIcon } from '@heroicons/react/24/solid';
 
 import { fetcher } from '@/utils/fetcher';
@@ -46,6 +46,9 @@ function RecipeIdPage() {
             </span>
             <span className='uppercase text-[#615551] text-[14px] lg:text-[18px]'>Servings</span>
           </div>
+          <button className='p-2 rounded-full 	bg-gradient-to-br from-[#fbdb89] to-[#f48982] transition-all duration-200 hover:cursor-pointer hover:scale-110'>
+            <BookmarkIcon className='w-[18px] stroke-white stroke-2 lg:w-[24px]' />
+          </button>
         </div>
       </section>
       <section className='flex flex-col items-center gap-4 px-[5rem] py-12 bg-[#f2efee] w-full'>
