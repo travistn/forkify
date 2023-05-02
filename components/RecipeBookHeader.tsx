@@ -19,6 +19,7 @@ function RecipeBookHeader() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setSearch('');
   };
 
   return (
@@ -36,6 +37,7 @@ function RecipeBookHeader() {
           type='search'
           placeholder={wide > 768 ? 'Search over 1,000,000 recipes...' : ''}
           onChange={(e) => setSearch(e.target.value)}
+          value={search}
           className='pl-8 py-2 rounded-full border-none outline-none text-[14px] text-black/80 md:py-3 lg:text-[16px] lg:w-[350px] 2xl:w-[375px]'
         />
         <button
