@@ -8,9 +8,12 @@ import { CheckIcon, ArrowSmallRightIcon } from '@heroicons/react/24/solid';
 
 import { fetcher } from '@/utils/fetcher';
 import { RecipeIngredientsProps } from '@/common/types';
+import useStore from '@/store';
 
 function RecipeIdPage() {
   const params = useParams();
+
+  const addBookmark = useStore((state) => state.addBookmark);
 
   const { data } = useSWR(
     `https://forkify-api.herokuapp.com/api/v2/recipes/${params.id}?key=${process.env.NEXT_PUBLIC_FORKIFY_ENDPOINT}`,
@@ -47,7 +50,10 @@ function RecipeIdPage() {
             <span className='uppercase text-[#615551] text-[14px] lg:text-[18px]'>Servings</span>
           </div>
           <button className='p-2 rounded-full 	bg-gradient-to-br from-[#fbdb89] to-[#f48982] transition-all duration-200 hover:cursor-pointer hover:scale-110'>
-            <BookmarkIcon className='w-[18px] stroke-white stroke-2 lg:w-[24px]' />
+            <BookmarkIcon
+              className='w-[18px] stroke-white stroke-2 lg:w-[24px]'
+              onClick={() => addBookmark(data?.data.recipe)}
+            />
           </button>
         </div>
       </section>
