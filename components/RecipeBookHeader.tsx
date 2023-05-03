@@ -9,13 +9,16 @@ import { PencilSquareIcon, BookmarkIcon } from '@heroicons/react/24/outline';
 import logo from '../public/logo.png';
 import { useWindowWide } from '@/hooks/useWindowWide';
 import useStore from '@/store';
+import RecipeCard from './RecipeCard';
 
 function RecipeBookHeader() {
   const router = useRouter();
   const wide = useWindowWide(768);
   const [search, setSearch] = useState('');
+  const [hidden, setHidden] = useState(true);
 
   const enterSearch = useStore((state) => state.enterSearch);
+  const bookmarks = useStore((state) => state.bookmarks);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -23,7 +26,7 @@ function RecipeBookHeader() {
   };
 
   return (
-    <header className='p-6 flex flex-row items-center justify-center gap-6 flex-wrap md:justify-between md:gap-4 md:flex-nowrap lg:px-8'>
+    <header className='p-6 flex flex-row items-center justify-center gap-6 flex-wrap md:justify-between md:gap-4 md:flex-nowrap lg:px-8 relative'>
       <Image
         src={logo}
         alt='logo'
@@ -54,12 +57,37 @@ function RecipeBookHeader() {
             <PencilSquareIcon className='w-[21px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Add Recipe
           </li>
-          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer'>
+          <li
+            className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer'
+            onMouseEnter={() => setHidden(!hidden)}
+            onMouseLeave={() => setHidden(!hidden)}>
             <BookmarkIcon className='w-[20px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Bookmarks
           </li>
         </ul>
       </nav>
+      <div
+        className={`${
+          hidden
+            ? 'hidden'
+            : 'bg-white absolute right-0 w-[70%] top-[200px] md:top-[100px] md:w-[40%] lg:w-[35%] opacity-100'
+        }`}>
+        {bookmarks.length === 0 ? (
+          <p className='text-[14px] text-[#615551] font-semibold p-12 lg:text-[16px]'>
+            No bookmarkets yet. Find a nice recipe and bookmark it!
+          </p>
+        ) : (
+          bookmarks.map((recipe, index: number) => (
+            <RecipeCard
+              key={index}
+              title={recipe.recipe.title}
+              publisher={recipe?.recipe.publisher}
+              image_url={recipe?.recipe.image_url}
+              id={recipe?.recipe.id}
+            />
+          ))
+        )}
+      </div>
     </header>
   );
 }
