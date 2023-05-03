@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 
-interface Bookmark {
-  recipe: string;
-}
+import { Bookmark } from './common/types';
 
 interface AppState {
   search: string;
   bookmarks: Bookmark[];
   enterSearch: (search: string) => void;
-  addBookmark: (bookmark: string) => void;
+  addBookmark: (bookmark: {}) => void;
 }
 
 const useStore = create<AppState>()((set) => ({
@@ -16,7 +14,9 @@ const useStore = create<AppState>()((set) => ({
   bookmarks: [],
   enterSearch: (search) => set((state) => ({ search: (state.search = search) })),
   addBookmark: (bookmark) =>
-    set((state) => ({ bookmarks: [...state.bookmarks, { recipe: bookmark }] })),
+    set((state) => ({
+      bookmarks: [...state.bookmarks, { recipe: bookmark } as Bookmark],
+    })),
 }));
 
 export default useStore;
