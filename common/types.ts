@@ -10,3 +10,12 @@ export interface RecipeIngredientsProps {
   unit: string;
   description: string;
 }
+
+export interface Bookmark {
+  recipe: {
+    title: string;
+    publisher: string;
+    image_url: string;
+    id: string;
+  };
+}
