@@ -15,7 +15,6 @@ function RecipeBookHeader() {
   const router = useRouter();
   const wide = useWindowWide(768);
   const [search, setSearch] = useState('');
-  const [hidden, setHidden] = useState(true);
 
   const enterSearch = useStore((state) => state.enterSearch);
   const bookmarks = useStore((state) => state.bookmarks);
@@ -26,13 +25,15 @@ function RecipeBookHeader() {
   };
 
   return (
-    <header className='p-6 flex flex-row items-center justify-center gap-6 flex-wrap md:justify-between md:gap-4 md:flex-nowrap lg:px-8 relative'>
-      <Image
-        src={logo}
-        alt='logo'
-        className='w-[112px] lg:w-[140px] hover:cursor-pointer'
-        onClick={() => router.push('/')}
-      />
+    <header className='relative flex flex-row px-6 items-center justify-center gap-6 flex-wrap md:justify-between md:gap-4 md:flex-nowrap lg:px-8'>
+      <figure className='h-[80px] lg:h-[100px] flex items-center'>
+        <Image
+          src={logo}
+          alt='logo'
+          className='w-[112px] lg:w-[140px] hover:cursor-pointer'
+          onClick={() => router.push('/')}
+        />
+      </figure>
       <form
         className='flex flex-row transition-all duration-300 focus-within:-translate-y-1'
         onSubmit={handleSubmit}>
@@ -51,43 +52,36 @@ function RecipeBookHeader() {
           Search
         </button>
       </form>
-      <nav>
-        <ul className='flex flex-row gap-6'>
+      <nav className='self-stretch'>
+        <ul className='flex flex-row gap-6 h-full'>
           <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer'>
             <PencilSquareIcon className='w-[21px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Add Recipe
           </li>
-          <li
-            className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer'
-            onMouseEnter={() => setHidden(!hidden)}
-            onMouseLeave={() => setHidden(!hidden)}>
+          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer group'>
             <BookmarkIcon className='w-[20px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Bookmarks
+            <div
+              className={`hidden z-10 flex-col bg-white absolute right-0 w-[70%] top-[200px] md:top-[80px] md:w-[40%] lg:w-[35%] lg:top-[100px] group-hover:flex`}>
+              {bookmarks.length === 0 ? (
+                <p className='text-[14px] text-[#615551] font-semibold normal-case p-12 lg:text-[16px]'>
+                  No bookmarkets yet. Find a nice recipe and bookmark it!
+                </p>
+              ) : (
+                bookmarks.map((recipe, index: number) => (
+                  <RecipeCard
+                    key={index}
+                    title={recipe.recipe.title}
+                    publisher={recipe?.recipe.publisher}
+                    image_url={recipe?.recipe.image_url}
+                    id={recipe?.recipe.id}
+                  />
+                ))
+              )}
+            </div>
           </li>
         </ul>
       </nav>
-      <div
-        className={`${
-          hidden
-            ? 'hidden'
-            : 'bg-white absolute right-0 w-[70%] top-[200px] md:top-[100px] md:w-[40%] lg:w-[35%] opacity-100'
-        }`}>
-        {bookmarks.length === 0 ? (
-          <p className='text-[14px] text-[#615551] font-semibold p-12 lg:text-[16px]'>
-            No bookmarkets yet. Find a nice recipe and bookmark it!
-          </p>
-        ) : (
-          bookmarks.map((recipe, index: number) => (
-            <RecipeCard
-              key={index}
-              title={recipe.recipe.title}
-              publisher={recipe?.recipe.publisher}
-              image_url={recipe?.recipe.image_url}
-              id={recipe?.recipe.id}
-            />
-          ))
-        )}
-      </div>
     </header>
   );
 }
