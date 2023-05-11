@@ -7,6 +7,7 @@ interface AppState {
   bookmarks: Bookmark[];
   enterSearch: (search: string) => void;
   addBookmark: (bookmark: {}) => void;
+  removeBookmark: (id: string) => void;
 }
 
 const useStore = create<AppState>()((set) => ({
@@ -16,6 +17,10 @@ const useStore = create<AppState>()((set) => ({
   addBookmark: (bookmark) =>
     set((state) => ({
       bookmarks: [...state.bookmarks, { recipe: bookmark } as Bookmark],
+    })),
+  removeBookmark: (id) =>
+    set((state) => ({
+      bookmarks: state.bookmarks.filter((recipe) => recipe.recipe.id !== id),
     })),
 }));
 
