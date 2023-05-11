@@ -15,6 +15,7 @@ function RecipeIdPage() {
 
   const bookmarks = useStore((state) => state.bookmarks);
   const addBookmark = useStore((state) => state.addBookmark);
+  const removeBookmark = useStore((state) => state.removeBookmark);
 
   const { data } = useSWR(
     `https://forkify-api.herokuapp.com/api/v2/recipes/${params.id}?key=${process.env.NEXT_PUBLIC_FORKIFY_ENDPOINT}`,
@@ -55,7 +56,11 @@ function RecipeIdPage() {
               className={`w-[18px] stroke-white stroke-2 lg:w-[24px] ${
                 bookmarks?.some((recipe) => recipe.recipe.id === params.id) ? 'fill-white' : ''
               }`}
-              onClick={() => addBookmark(data?.data.recipe)}
+              onClick={() =>
+                bookmarks?.some((recipe) => recipe.recipe.id === params.id)
+                  ? removeBookmark(data?.data.recipe.id)
+                  : addBookmark(data?.data.recipe)
+              }
             />
           </button>
         </div>
