@@ -67,6 +67,7 @@ function Recipes() {
             }
             current={current}
             onChange={onPageChange}
+            simple
           />
         </div>
       )}
