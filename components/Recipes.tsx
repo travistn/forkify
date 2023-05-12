@@ -40,7 +40,7 @@ function Recipes() {
   };
 
   return (
-    <section className='bg-white w-full md:max-w-[30%] lg:max-w-[34%] xl:rounded-bl-md'>
+    <section className='bg-white w-full min-h-screen md:max-w-[30%] lg:max-w-[34%] xl:rounded-bl-md'>
       <ul className='flex flex-col md:mt-6'>
         {getRecipes(current, size)?.map((recipe: RecipeCardProps, index: number) => (
           <RecipeCard
@@ -52,22 +52,24 @@ function Recipes() {
           />
         ))}
       </ul>
-      <div className='p-4 flex flex-row justify-center'>
-        <Pagination
-          className='flex flex-row items-center gap-8 select-none text-[14px] text-pink-orange font-bold lg:text-[16px] hover:cursor-pointer'
-          total={data?.data.recipes.length}
-          pageSize={size}
-          onShowSizeChange={PerPageChange}
-          prevIcon={
-            <ArrowLeftIcon className='w-[14px] fill-pink-orange stroke-pink-orange lg:w-[16px]' />
-          }
-          nextIcon={
-            <ArrowRightIcon className='w-[14px] fill-pink-orange stroke-pink-orange lg:w-[16px]' />
-          }
-          current={current}
-          onChange={onPageChange}
-        />
-      </div>
+      {data?.data.recipes.length !== 0 && (
+        <div className='p-4 flex flex-row justify-center'>
+          <Pagination
+            className='flex flex-row items-center gap-8 select-none text-[14px] text-pink-orange font-bold lg:text-[16px] hover:cursor-pointer'
+            total={data?.data.recipes.length}
+            pageSize={size}
+            onShowSizeChange={PerPageChange}
+            prevIcon={
+              <ArrowLeftIcon className='w-[14px] fill-pink-orange stroke-pink-orange lg:w-[16px]' />
+            }
+            nextIcon={
+              <ArrowRightIcon className='w-[14px] fill-pink-orange stroke-pink-orange lg:w-[16px]' />
+            }
+            current={current}
+            onChange={onPageChange}
+          />
+        </div>
+      )}
     </section>
   );
 }
