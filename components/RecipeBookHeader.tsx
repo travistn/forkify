@@ -53,12 +53,12 @@ function RecipeBookHeader() {
         </button>
       </form>
       <nav className='self-stretch'>
-        <ul className='flex flex-row gap-6 h-full'>
-          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer'>
+        <ul className='flex flex-row h-full'>
+          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] px-4 lg:text-[14px] hover:cursor-pointer hover:bg-[#f2efee]'>
             <PencilSquareIcon className='w-[21px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Add Recipe
           </li>
-          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] lg:text-[14px] hover:cursor-pointer group'>
+          <li className='flex flex-row items-center gap-1 uppercase text-[12px] font-semibold text-[#615551] px-4 lg:text-[14px] hover:cursor-pointer group hover:bg-[#f2efee]'>
             <BookmarkIcon className='w-[20px] stroke-pink-orange stroke-2 lg:w-[24px]' />
             Bookmarks
             <div
